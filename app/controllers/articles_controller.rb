@@ -1,7 +1,8 @@
 class ArticlesController < ApplicationController
+  # This works like a hook and it performs that action before the methods
+  before_action :set_article, only: [:show, :edit, :update, :destroy]
+
   def show
-    # Instance variable so it's available in the views
-    @article = Article.find(params[:id])
   end
 
   def index
@@ -26,12 +27,9 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find(params[:id])
   end
 
   def update
-    @article = Article.find(params[:id])
-
     if @article.update(article_params)
       flash[:notice] = "Article was updated succesfully!"
       redirect_to @article
@@ -41,10 +39,14 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article = Article.find(params[:id])
     @article.destroy
     redirect_to articles_path
   end
+
+  private
+    def set_article
+      @article = Article.find(params[:id])
+    end
 
   # Strong Typing: this method filters params (allowed list)
   private
