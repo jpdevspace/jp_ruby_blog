@@ -1,3 +1,4 @@
+<!-- Both New and Edit forms are wrapped in a .container, no need to add it here again -->
 <% if @article.errors.any? %>
   <h2>The following errors prevented the article from being saved:</h2>
   <ul>
@@ -7,22 +8,24 @@
   </ul>
 <% end %>
 
-<%= form_with(model: @article, local: true) do |form| %>
-  <!-- Displaying only errors related to Title
-  
-  <% @article.errors.full_messages_for(:title).each do |message| %>
-    <div><%= message %></div>
-  <% end %>
-  -->
-  <div>
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+<div class="card my-4 p-3 shadow bg-body rounded">
+  <div class="card-body">
+    <%= form_with(model: @article, local: true) do |form| %>
+      <!-- Displaying only errors related to Title
+      
+      <% @article.errors.full_messages_for(:title).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+      -->
+      <div class="mb-3">
+        <%= form.label :title, class: "form-label" %>
+        <%= form.text_field :title, class: "form-control", placeholder: :title %>
+      </div>
+      <div class="mb-3">
+        <%= form.label :description, class: "form-label"%>
+        <%= form.text_area :description, class: "form-control", placeholder: :description %>
+      </div>
+      <%= form.submit class: "btn btn-dark" %>
+    <% end %>
   </div>
-  <div>
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>
